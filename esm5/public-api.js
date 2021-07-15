@@ -1,0 +1,5 @@
+/*
+ * Public API Surface of ngx-reactive-table
+ */
+export * from './lib/bases/ngx-datatable-powered-base';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL0Bwb2xwd2FyZS9uZ3gtcmVhY3RpdmUtdGFibGUvIiwic291cmNlcyI6WyJwdWJsaWMtYXBpLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOztHQUVHO0FBRUgsY0FBYyx3Q0FBd0MsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qXG4gKiBQdWJsaWMgQVBJIFN1cmZhY2Ugb2Ygbmd4LXJlYWN0aXZlLXRhYmxlXG4gKi9cblxuZXhwb3J0ICogZnJvbSAnLi9saWIvYmFzZXMvbmd4LWRhdGF0YWJsZS1wb3dlcmVkLWJhc2UnO1xuIl19
