@@ -2,7 +2,7 @@ import { SelectionType } from '@swimlane/ngx-datatable';
 import { IRowDataType, ITableWithOperationsBase } from '../interfaces';
 import { NgxDatatablePoweredBase } from './ngx-datatable-powered-base';
 export declare abstract class NgxDatatableLocalData<T extends IRowDataType> extends NgxDatatablePoweredBase<T> implements ITableWithOperationsBase<T> {
-    SelectionType: SelectionType;
+    selectionType: SelectionType;
     selected: Array<T>;
     editing: {
         [key: string]: boolean;

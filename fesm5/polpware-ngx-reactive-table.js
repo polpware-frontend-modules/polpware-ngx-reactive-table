@@ -62,7 +62,7 @@ var NgxDatatableExternalDataWithOperations = /** @class */ (function (_super) {
     __extends(NgxDatatableExternalDataWithOperations, _super);
     function NgxDatatableExternalDataWithOperations() {
         var _this = _super.call(this) || this;
-        _this.SelectionType = SelectionType.checkbox;
+        _this.selectionType = SelectionType.checkbox;
         return _this;
     }
     NgxDatatableExternalDataWithOperations.prototype.onSelect = function (_a) {
@@ -107,7 +107,7 @@ var NgxDatatableLocalData = /** @class */ (function (_super) {
     __extends(NgxDatatableLocalData, _super);
     function NgxDatatableLocalData() {
         var _this = _super.call(this) || this;
-        _this.SelectionType = SelectionType.checkbox;
+        _this.selectionType = SelectionType.checkbox;
         return _this;
     }
     NgxDatatableLocalData.prototype.onSelect = function (_a) {

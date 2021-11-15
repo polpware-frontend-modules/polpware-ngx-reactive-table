@@ -60,7 +60,7 @@ export interface IReactiveDatableBase<T extends IRowDataType> {
     sorts: Array<ISortableColumn>;
 }
 export interface ITableWithOperationsBase<T extends IRowDataType> extends IReactiveDatableBase<T> {
-    SelectionType: SelectionType;
+    selectionType: SelectionType;
     selected: Array<T>;
     editing: {
         [key: string]: boolean;

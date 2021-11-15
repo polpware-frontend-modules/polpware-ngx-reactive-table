@@ -17,7 +17,7 @@ export declare function supportOperationsDecorator<T extends IRowDataType, U ext
         updateValue(event: any, prop: string, rowIndex: number): void;
         cleanEditing(rowIndex: number): void;
         rmAsync(): Promise<void>;
-        SelectionType: import("@swimlane/ngx-datatable").SelectionType;
+        selectionType: import("@swimlane/ngx-datatable").SelectionType;
         selected: T[];
         editing: {
             [key: string]: boolean;

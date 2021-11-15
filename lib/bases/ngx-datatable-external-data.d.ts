@@ -9,7 +9,7 @@ export declare abstract class NgxDatatableExternalData<T extends IRowDataType> e
     abstract onSortChanged(evt: ISortChangedEvent): any;
 }
 export declare abstract class NgxDatatableExternalDataWithOperations<T extends IRowDataType> extends NgxDatatableExternalData<T> implements ITableWithOperationsBase<T> {
-    SelectionType: SelectionType;
+    selectionType: SelectionType;
     selected: Array<T>;
     editing: {
         [key: string]: boolean;

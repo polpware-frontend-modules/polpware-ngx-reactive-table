@@ -58,7 +58,7 @@ class NgxDatatableExternalData extends NgxDatatablePoweredBase {
 class NgxDatatableExternalDataWithOperations extends NgxDatatableExternalData {
     constructor() {
         super();
-        this.SelectionType = SelectionType.checkbox;
+        this.selectionType = SelectionType.checkbox;
     }
     onSelect({ selected }) { }
     startAdd() { }
@@ -84,7 +84,7 @@ class NgxDatatableExternalDataWithOperations extends NgxDatatableExternalData {
 class NgxDatatableLocalData extends NgxDatatablePoweredBase {
     constructor() {
         super();
-        this.SelectionType = SelectionType.checkbox;
+        this.selectionType = SelectionType.checkbox;
     }
     onSelect({ selected }) { }
     startAdd() { }
