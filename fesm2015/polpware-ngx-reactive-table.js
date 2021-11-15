@@ -36,8 +36,8 @@ class NgxDatatablePoweredBase {
         this.sorts = [];
     }
     ngOnInit() {
-        const settings = Object.assign({}, defaultSettings, this.settings);
-        this.pageSize = settings.pageSize;
+        this.settings = Object.assign({}, defaultSettings, this.settings);
+        this.pageSize = this.settings.pageSize;
     }
 }
 NgxDatatablePoweredBase.ɵfac = function NgxDatatablePoweredBase_Factory(t) { return new (t || NgxDatatablePoweredBase)(); };

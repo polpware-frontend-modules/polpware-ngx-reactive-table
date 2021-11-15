@@ -36,8 +36,8 @@ var NgxDatatablePoweredBase = /** @class */ (function () {
         this.sorts = [];
     }
     NgxDatatablePoweredBase.prototype.ngOnInit = function () {
-        var settings = Object.assign({}, defaultSettings, this.settings);
-        this.pageSize = settings.pageSize;
+        this.settings = Object.assign({}, defaultSettings, this.settings);
+        this.pageSize = this.settings.pageSize;
     };
     NgxDatatablePoweredBase.ɵfac = function NgxDatatablePoweredBase_Factory(t) { return new (t || NgxDatatablePoweredBase)(); };
     NgxDatatablePoweredBase.ɵdir = ɵɵdefineDirective({ type: NgxDatatablePoweredBase, inputs: { settings: "settings" } });
