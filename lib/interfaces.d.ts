@@ -1,5 +1,4 @@
 import { TemplateRef } from '@angular/core';
-import { SelectionType } from '@swimlane/ngx-datatable';
 export declare type HtmlInputTypeEnum = 'text' | 'tel' | 'email' | 'date' | 'number' | 'checkbox';
 export interface IRowDataType {
     id: any;
@@ -60,7 +59,6 @@ export interface IReactiveDatableBase<T extends IRowDataType> {
     sorts: Array<ISortableColumn>;
 }
 export interface ITableWithOperationsBase<T extends IRowDataType> extends IReactiveDatableBase<T> {
-    selectionType: SelectionType;
     selected: Array<T>;
     editing: {
         [key: string]: boolean;
