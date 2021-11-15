@@ -284,6 +284,11 @@
         function NgxDatatableExternalDataWithOperations() {
             var _this = _super.call(this) || this;
             _this.SelectionType = ngxDatatable.SelectionType;
+            // Support selected
+            _this.selected = [];
+            // Suport editing
+            _this.editing = {};
+            _this.backup = {};
             return _this;
         }
         NgxDatatableExternalDataWithOperations.prototype.onSelect = function (_a) {
@@ -329,6 +334,11 @@
         function NgxDatatableLocalData() {
             var _this = _super.call(this) || this;
             _this.SelectionType = ngxDatatable.SelectionType;
+            // Support selected
+            _this.selected = [];
+            // Suport editing
+            _this.editing = {};
+            _this.backup = {};
             return _this;
         }
         NgxDatatableLocalData.prototype.onSelect = function (_a) {

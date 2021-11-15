@@ -59,6 +59,11 @@ class NgxDatatableExternalDataWithOperations extends NgxDatatableExternalData {
     constructor() {
         super();
         this.SelectionType = SelectionType;
+        // Support selected
+        this.selected = [];
+        // Suport editing
+        this.editing = {};
+        this.backup = {};
     }
     onSelect({ selected }) { }
     startAdd() { }
@@ -85,6 +90,11 @@ class NgxDatatableLocalData extends NgxDatatablePoweredBase {
     constructor() {
         super();
         this.SelectionType = SelectionType;
+        // Support selected
+        this.selected = [];
+        // Suport editing
+        this.editing = {};
+        this.backup = {};
     }
     onSelect({ selected }) { }
     startAdd() { }
