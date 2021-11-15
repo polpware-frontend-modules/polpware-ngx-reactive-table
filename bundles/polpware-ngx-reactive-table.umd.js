@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@swimlane/ngx-datatable'), require('@angular/core')) :
-    typeof define === 'function' && define.amd ? define('@polpware/ngx-reactive-table', ['exports', '@swimlane/ngx-datatable', '@angular/core'], factory) :
-    (global = global || self, factory((global.polpware = global.polpware || {}, global.polpware['ngx-reactive-table'] = {}), global.ngxDatatable, global.ng.core));
-}(this, (function (exports, ngxDatatable, core) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@swimlane/ngx-datatable')) :
+    typeof define === 'function' && define.amd ? define('@polpware/ngx-reactive-table', ['exports', '@swimlane/ngx-datatable'], factory) :
+    (global = global || self, factory((global.polpware = global.polpware || {}, global.polpware['ngx-reactive-table'] = {}), global.ngxDatatable));
+}(this, (function (exports, ngxDatatable) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -242,10 +242,14 @@
 
     var NgxDatatablePoweredBase = /** @class */ (function () {
         function NgxDatatablePoweredBase() {
+            // Note that we do not make settings be an input,
+            // becasue the behavior of an input in the abstract base class is not well-defined
+            // Sometime, it works  and sometimes it causes compilation errors.
+            this.settings = defaultSettings;
             this.ColumnMode = ngxDatatable.ColumnMode;
             this.columns = [];
             this.rows = [];
-            this.pageSize = 40;
+            this.pageSize = defaultSettings.pageSize;
             this.loading = false;
             this.totalCount = 0;
             this.pageIndex = 0; // page index
@@ -256,12 +260,6 @@
             // Describe the init sorting order.
             this.sorts = [];
         }
-        NgxDatatablePoweredBase.prototype.ngOnInit = function () {
-            this.settings = Object.assign({}, defaultSettings, this.settings);
-            this.pageSize = this.settings.pageSize;
-        };
-        NgxDatatablePoweredBase.ɵfac = function NgxDatatablePoweredBase_Factory(t) { return new (t || NgxDatatablePoweredBase)(); };
-        NgxDatatablePoweredBase.ɵdir = core.ɵɵdefineDirective({ type: NgxDatatablePoweredBase, inputs: { settings: "settings" } });
         return NgxDatatablePoweredBase;
     }());
 

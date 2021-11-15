@@ -1,6 +1,5 @@
 import { __extends, __awaiter, __generator, __spread, __assign } from 'tslib';
 import { ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
-import { ɵɵdefineDirective } from '@angular/core';
 
 var noopPromise = function (data) { return new Promise(function (resolve, reject) {
     resolve(data);
@@ -21,10 +20,14 @@ var defaultSettings = {
 
 var NgxDatatablePoweredBase = /** @class */ (function () {
     function NgxDatatablePoweredBase() {
+        // Note that we do not make settings be an input,
+        // becasue the behavior of an input in the abstract base class is not well-defined
+        // Sometime, it works  and sometimes it causes compilation errors.
+        this.settings = defaultSettings;
         this.ColumnMode = ColumnMode;
         this.columns = [];
         this.rows = [];
-        this.pageSize = 40;
+        this.pageSize = defaultSettings.pageSize;
         this.loading = false;
         this.totalCount = 0;
         this.pageIndex = 0; // page index
@@ -35,12 +38,6 @@ var NgxDatatablePoweredBase = /** @class */ (function () {
         // Describe the init sorting order.
         this.sorts = [];
     }
-    NgxDatatablePoweredBase.prototype.ngOnInit = function () {
-        this.settings = Object.assign({}, defaultSettings, this.settings);
-        this.pageSize = this.settings.pageSize;
-    };
-    NgxDatatablePoweredBase.ɵfac = function NgxDatatablePoweredBase_Factory(t) { return new (t || NgxDatatablePoweredBase)(); };
-    NgxDatatablePoweredBase.ɵdir = ɵɵdefineDirective({ type: NgxDatatablePoweredBase, inputs: { settings: "settings" } });
     return NgxDatatablePoweredBase;
 }());
 
