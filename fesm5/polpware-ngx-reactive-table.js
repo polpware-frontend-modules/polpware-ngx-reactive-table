@@ -273,6 +273,7 @@ function supportOperationsDecorator(constructor) {
                     switch (_a.label) {
                         case 0:
                             elem = this.rows[rowIndex];
+                            newElem = null;
                             if (!this.settings.addOrEditAsyncHandler) return [3 /*break*/, 2];
                             return [4 /*yield*/, this.settings.addOrEditAsyncHandler(elem)];
                         case 1:
@@ -284,6 +285,11 @@ function supportOperationsDecorator(constructor) {
                         case 2:
                             this.cleanEditing(rowIndex);
                             delete this.backup[rowIndex];
+                            this.dataChange.emit({
+                                op: 'addOrEdit',
+                                data: newElem,
+                                rows: this.rows
+                            });
                             return [2 /*return*/];
                     }
                 });
@@ -302,6 +308,7 @@ function supportOperationsDecorator(constructor) {
         };
         class_1.prototype.rmAsync = function () {
             return __awaiter(this, void 0, void 0, function () {
+                var oldSelected;
                 var _this = this;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
@@ -318,7 +325,13 @@ function supportOperationsDecorator(constructor) {
                             // Update data
                             this.rows = this.rows.filter(function (a) { return !_this.selected.some(function (b) { return b === a; }); });
                             this.totalCount = this.totalCount - this.selected.length;
+                            oldSelected = this.selected;
                             this.selected = [];
+                            this.dataChange.emit({
+                                op: 'rm',
+                                data: oldSelected,
+                                rows: this.rows
+                            });
                             return [2 /*return*/];
                     }
                 });

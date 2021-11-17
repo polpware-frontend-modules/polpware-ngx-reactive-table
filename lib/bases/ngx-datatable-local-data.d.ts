@@ -1,5 +1,6 @@
+import { EventEmitter } from '@angular/core';
 import { SelectionType } from '@swimlane/ngx-datatable';
-import { IRowDataType, ITableWithOperationsBase } from '../interfaces';
+import { IRowDataType, ITableDataChangeEvent, ITableWithOperationsBase } from '../interfaces';
 import { NgxDatatablePoweredBase } from './ngx-datatable-powered-base';
 export declare abstract class NgxDatatableLocalData<T extends IRowDataType> extends NgxDatatablePoweredBase<T> implements ITableWithOperationsBase<T> {
     SelectionType: typeof SelectionType;
@@ -11,6 +12,7 @@ export declare abstract class NgxDatatableLocalData<T extends IRowDataType> exte
         [key: number]: T;
     };
     anyEditing: boolean;
+    abstract dataChange: EventEmitter<ITableDataChangeEvent>;
     constructor();
     onSelect({ selected }: {
         selected: any;

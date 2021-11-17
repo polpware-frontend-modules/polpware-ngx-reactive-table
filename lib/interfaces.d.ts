@@ -1,4 +1,4 @@
-import { TemplateRef } from '@angular/core';
+import { EventEmitter, TemplateRef } from '@angular/core';
 export declare type HtmlInputTypeEnum = 'text' | 'tel' | 'email' | 'date' | 'number' | 'checkbox';
 export interface IRowDataType {
     id: any;
@@ -58,6 +58,11 @@ export interface IReactiveDatableBase<T extends IRowDataType> {
     sortingKey: string;
     sorts: Array<ISortableColumn>;
 }
+export interface ITableDataChangeEvent {
+    op: 'addOrEdit' | 'rm';
+    data: Array<IRowDataType> | IRowDataType;
+    rows: Array<IRowDataType>;
+}
 export interface ITableWithOperationsBase<T extends IRowDataType> extends IReactiveDatableBase<T> {
     selected: Array<T>;
     editing: {
@@ -67,6 +72,7 @@ export interface ITableWithOperationsBase<T extends IRowDataType> extends IReact
         [key: number]: T;
     };
     anyEditing: boolean;
+    dataChange: EventEmitter<ITableDataChangeEvent>;
     onSelect(data: {
         selected: Array<T>;
     }): void;

@@ -216,8 +216,9 @@ function supportOperationsDecorator(constructor) {
         confirmEditAsync(rowIndex) {
             return __awaiter(this, void 0, void 0, function* () {
                 const elem = this.rows[rowIndex];
+                let newElem = null;
                 if (this.settings.addOrEditAsyncHandler) {
-                    const newElem = yield this.settings.addOrEditAsyncHandler(elem);
+                    newElem = yield this.settings.addOrEditAsyncHandler(elem);
                     // todo: Do we need to update data ????
                     const firstPart = sliceArray(this.rows, 0, rowIndex - 1);
                     const secondPart = sliceArray(this.rows, rowIndex + 1, this.rows.length - 1);
@@ -225,6 +226,11 @@ function supportOperationsDecorator(constructor) {
                 }
                 this.cleanEditing(rowIndex);
                 delete this.backup[rowIndex];
+                this.dataChange.emit({
+                    op: 'addOrEdit',
+                    data: newElem,
+                    rows: this.rows
+                });
             });
         }
         updateValue(event, prop, rowIndex) {
@@ -247,7 +253,13 @@ function supportOperationsDecorator(constructor) {
                 // Update data
                 this.rows = this.rows.filter(a => !this.selected.some(b => b === a));
                 this.totalCount = this.totalCount - this.selected.length;
+                const oldSelected = this.selected;
                 this.selected = [];
+                this.dataChange.emit({
+                    op: 'rm',
+                    data: oldSelected,
+                    rows: this.rows
+                });
             });
         }
     };
