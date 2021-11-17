@@ -490,10 +490,11 @@
             };
             class_1.prototype.confirmEditAsync = function (rowIndex) {
                 return __awaiter(this, void 0, void 0, function () {
-                    var elem, newElem, firstPart, secondPart;
+                    var elem, newElem, firstPart, secondPart, e_1;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
+                                _a.trys.push([0, 3, , 4]);
                                 elem = this.rows[rowIndex];
                                 newElem = null;
                                 if (!this.settings.addOrEditAsyncHandler) return [3 /*break*/, 2];
@@ -512,7 +513,12 @@
                                     data: newElem,
                                     rows: this.rows
                                 });
-                                return [2 /*return*/];
+                                return [3 /*break*/, 4];
+                            case 3:
+                                e_1 = _a.sent();
+                                this.noty.error('Sorry, something went wrong!', 'Operation result');
+                                return [3 /*break*/, 4];
+                            case 4: return [2 /*return*/];
                         }
                     });
                 });
@@ -530,11 +536,12 @@
             };
             class_1.prototype.rmAsync = function () {
                 return __awaiter(this, void 0, void 0, function () {
-                    var oldSelected;
+                    var oldSelected, e_2;
                     var _this = this;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
+                                _a.trys.push([0, 3, , 4]);
                                 if (!this.settings.rmAsyncHandler) return [3 /*break*/, 2];
                                 // Expect to be a transaction 
                                 return [4 /*yield*/, this.settings.rmAsyncHandler(this.selected)];
@@ -549,12 +556,18 @@
                                 this.totalCount = this.totalCount - this.selected.length;
                                 oldSelected = this.selected;
                                 this.selected = [];
+                                this.noty.success('Data has been deleted successfully!', 'Operation result');
                                 this.dataChange.emit({
                                     op: 'rm',
                                     data: oldSelected,
                                     rows: this.rows
                                 });
-                                return [2 /*return*/];
+                                return [3 /*break*/, 4];
+                            case 3:
+                                e_2 = _a.sent();
+                                this.noty.error('Sorry, something went wrong!', 'Operation result');
+                                return [3 /*break*/, 4];
+                            case 4: return [2 /*return*/];
                         }
                     });
                 });

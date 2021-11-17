@@ -25,6 +25,7 @@ export declare function supportOperationsDecorator<T extends IRowDataType, U ext
             [key: number]: T;
         };
         dataChange: import("@angular/core").EventEmitter<import("../interfaces").ITableDataChangeEvent>;
+        noty: import("@polpware/ngx-noty").INgxNoty;
         settings: import("../interfaces").IComponentSettings;
         columns: import("../interfaces").ITableColumnSpec[];
         rows: T[];

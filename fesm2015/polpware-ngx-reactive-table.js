@@ -215,22 +215,27 @@ function supportOperationsDecorator(constructor) {
         }
         confirmEditAsync(rowIndex) {
             return __awaiter(this, void 0, void 0, function* () {
-                const elem = this.rows[rowIndex];
-                let newElem = null;
-                if (this.settings.addOrEditAsyncHandler) {
-                    newElem = yield this.settings.addOrEditAsyncHandler(elem);
-                    // todo: Do we need to update data ????
-                    const firstPart = sliceArray(this.rows, 0, rowIndex - 1);
-                    const secondPart = sliceArray(this.rows, rowIndex + 1, this.rows.length - 1);
-                    this.rows = [...firstPart, newElem, ...secondPart];
+                try {
+                    const elem = this.rows[rowIndex];
+                    let newElem = null;
+                    if (this.settings.addOrEditAsyncHandler) {
+                        newElem = yield this.settings.addOrEditAsyncHandler(elem);
+                        // todo: Do we need to update data ????
+                        const firstPart = sliceArray(this.rows, 0, rowIndex - 1);
+                        const secondPart = sliceArray(this.rows, rowIndex + 1, this.rows.length - 1);
+                        this.rows = [...firstPart, newElem, ...secondPart];
+                    }
+                    this.cleanEditing(rowIndex);
+                    delete this.backup[rowIndex];
+                    this.dataChange.emit({
+                        op: 'addOrEdit',
+                        data: newElem,
+                        rows: this.rows
+                    });
                 }
-                this.cleanEditing(rowIndex);
-                delete this.backup[rowIndex];
-                this.dataChange.emit({
-                    op: 'addOrEdit',
-                    data: newElem,
-                    rows: this.rows
-                });
+                catch (e) {
+                    this.noty.error('Sorry, something went wrong!', 'Operation result');
+                }
             });
         }
         updateValue(event, prop, rowIndex) {
@@ -245,21 +250,27 @@ function supportOperationsDecorator(constructor) {
         }
         rmAsync() {
             return __awaiter(this, void 0, void 0, function* () {
-                if (this.settings.rmAsyncHandler) {
-                    // Expect to be a transaction 
-                    yield this.settings.rmAsyncHandler(this.selected);
+                try {
+                    if (this.settings.rmAsyncHandler) {
+                        // Expect to be a transaction 
+                        yield this.settings.rmAsyncHandler(this.selected);
+                    }
+                    // Do not refresh; just delete them from the local set.
+                    // Update data
+                    this.rows = this.rows.filter(a => !this.selected.some(b => b === a));
+                    this.totalCount = this.totalCount - this.selected.length;
+                    const oldSelected = this.selected;
+                    this.selected = [];
+                    this.noty.success('Data has been deleted successfully!', 'Operation result');
+                    this.dataChange.emit({
+                        op: 'rm',
+                        data: oldSelected,
+                        rows: this.rows
+                    });
                 }
-                // Do not refresh; just delete them from the local set.
-                // Update data
-                this.rows = this.rows.filter(a => !this.selected.some(b => b === a));
-                this.totalCount = this.totalCount - this.selected.length;
-                const oldSelected = this.selected;
-                this.selected = [];
-                this.dataChange.emit({
-                    op: 'rm',
-                    data: oldSelected,
-                    rows: this.rows
-                });
+                catch (e) {
+                    this.noty.error('Sorry, something went wrong!', 'Operation result');
+                }
             });
         }
     };
