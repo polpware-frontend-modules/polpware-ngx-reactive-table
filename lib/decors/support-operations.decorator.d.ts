@@ -24,8 +24,8 @@ export declare function supportOperationsDecorator<T extends IRowDataType, U ext
         backup: {
             [key: number]: T;
         };
-        dataChange: import("@angular/core").EventEmitter<import("../interfaces").ITableDataChangeEvent>;
         noty: import("@polpware/ngx-noty").INgxNoty;
+        publish(event: import("../interfaces").ITableDataChangeEvent): void;
         settings: import("../interfaces").IComponentSettings;
         columns: import("../interfaces").ITableColumnSpec[];
         rows: T[];

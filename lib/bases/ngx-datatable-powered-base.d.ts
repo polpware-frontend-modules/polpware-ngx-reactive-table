@@ -1,5 +1,5 @@
 import { ColumnMode } from '@swimlane/ngx-datatable';
-import { IComponentSettings, IRowDataType, ISortableColumn, ITableColumnSpec, IReactiveDatableBase } from '../interfaces';
+import { IComponentSettings, IReactiveDatableBase, IRowDataType, ISortableColumn, ITableColumnSpec } from '../interfaces';
 export declare abstract class NgxDatatablePoweredBase<T extends IRowDataType> implements IReactiveDatableBase<T> {
     settings: IComponentSettings;
     ColumnMode: typeof ColumnMode;

@@ -1,4 +1,4 @@
-import { EventEmitter, TemplateRef } from '@angular/core';
+import { TemplateRef } from '@angular/core';
 import { INgxNoty } from '@polpware/ngx-noty';
 export declare type HtmlInputTypeEnum = 'text' | 'tel' | 'email' | 'date' | 'number' | 'checkbox';
 export interface IRowDataType {
@@ -73,8 +73,8 @@ export interface ITableWithOperationsBase<T extends IRowDataType> extends IReact
         [key: number]: T;
     };
     anyEditing: boolean;
-    dataChange: EventEmitter<ITableDataChangeEvent>;
     noty: INgxNoty;
+    publish(event: ITableDataChangeEvent): void;
     onSelect(data: {
         selected: Array<T>;
     }): void;

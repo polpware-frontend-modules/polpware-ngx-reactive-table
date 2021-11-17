@@ -1,4 +1,3 @@
-import { EventEmitter } from '@angular/core';
 import { INgxNoty } from '@polpware/ngx-noty';
 import { SelectionType } from '@swimlane/ngx-datatable';
 import { IRowDataType, ITableDataChangeEvent, ITableWithOperationsBase } from '../interfaces';
@@ -13,9 +12,9 @@ export declare abstract class NgxDatatableLocalData<T extends IRowDataType> exte
         [key: number]: T;
     };
     anyEditing: boolean;
-    abstract dataChange: EventEmitter<ITableDataChangeEvent>;
     abstract noty: INgxNoty;
     constructor();
+    abstract publish(event: ITableDataChangeEvent): void;
     onSelect({ selected }: {
         selected: any;
     }): void;

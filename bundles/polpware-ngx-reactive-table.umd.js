@@ -508,7 +508,7 @@
                             case 2:
                                 this.cleanEditing(rowIndex);
                                 delete this.backup[rowIndex];
-                                this.dataChange.emit({
+                                this.publish({
                                     op: 'addOrEdit',
                                     data: newElem,
                                     rows: this.rows
@@ -557,7 +557,7 @@
                                 oldSelected = this.selected;
                                 this.selected = [];
                                 this.noty.success('Data has been deleted successfully!', 'Operation result');
-                                this.dataChange.emit({
+                                this.publish({
                                     op: 'rm',
                                     data: oldSelected,
                                     rows: this.rows
