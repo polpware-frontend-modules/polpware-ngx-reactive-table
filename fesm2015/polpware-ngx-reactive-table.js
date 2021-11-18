@@ -114,8 +114,6 @@ class NgxDatatableLocalData extends NgxDatatablePoweredBase {
     // Support for local filters
     startObserveSearchKeyword() { }
     stopObserveSearchKeyword() { }
-    cancelTypedKeyword() { }
-    ;
 }
 
 /**

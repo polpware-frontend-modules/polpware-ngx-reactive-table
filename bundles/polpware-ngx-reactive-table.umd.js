@@ -376,8 +376,6 @@
         // Support for local filters
         NgxDatatableLocalData.prototype.startObserveSearchKeyword = function () { };
         NgxDatatableLocalData.prototype.stopObserveSearchKeyword = function () { };
-        NgxDatatableLocalData.prototype.cancelTypedKeyword = function () { };
-        ;
         return NgxDatatableLocalData;
     }(NgxDatatablePoweredBase));
 

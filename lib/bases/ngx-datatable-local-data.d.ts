@@ -30,6 +30,6 @@ export declare abstract class NgxDatatableLocalData<T extends IRowDataType> exte
     rmAsync(): Promise<void>;
     startObserveSearchKeyword(): void;
     stopObserveSearchKeyword(): void;
-    cancelTypedKeyword(): void;
+    abstract cancelTypedKeyword(): void;
     abstract kickOffSearch(): void;
 }
