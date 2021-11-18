@@ -599,9 +599,6 @@
             class_1.prototype.stopObserveSearchKeyword = function () {
                 this._searchKeywordSubr && this._searchKeywordSubr.unsubscribe();
             };
-            class_1.prototype.cancelTypedKeyword = function () {
-                this.searchControl.setValue('');
-            };
             return class_1;
         }(constructor));
     }

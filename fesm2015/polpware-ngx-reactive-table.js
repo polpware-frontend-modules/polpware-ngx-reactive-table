@@ -294,9 +294,6 @@ function hasLocalFilterDecorator(constructor) {
         stopObserveSearchKeyword() {
             this._searchKeywordSubr && this._searchKeywordSubr.unsubscribe();
         }
-        cancelTypedKeyword() {
-            this.searchControl.setValue('');
-        }
     };
 }
 

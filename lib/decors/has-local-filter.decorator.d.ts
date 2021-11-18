@@ -10,9 +10,9 @@ export declare function hasLocalFilterDecorator<T extends DecoratorPrerequisiteC
         _searchKeywordSubr: Subscription;
         startObserveSearchKeyword(): void;
         stopObserveSearchKeyword(): void;
-        cancelTypedKeyword(): void;
         searchControl: import("@angular/forms").FormControl;
         anyFutureKeyword: string;
+        cancelTypedKeyword(): void;
         kickOffSearch(): void;
     };
 } & T;
