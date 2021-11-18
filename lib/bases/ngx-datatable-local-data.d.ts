@@ -1,8 +1,9 @@
+import { FormControl } from '@angular/forms';
 import { INgxNoty } from '@polpware/ngx-noty';
 import { SelectionType } from '@swimlane/ngx-datatable';
-import { IRowDataType, ITableDataChangeEvent, ITableWithOperationsBase } from '../interfaces';
+import { IHasLocalFilter, IRowDataType, ITableDataChangeEvent, ITableWithOperationsBase } from '../interfaces';
 import { NgxDatatablePoweredBase } from './ngx-datatable-powered-base';
-export declare abstract class NgxDatatableLocalData<T extends IRowDataType> extends NgxDatatablePoweredBase<T> implements ITableWithOperationsBase<T> {
+export declare abstract class NgxDatatableLocalData<T extends IRowDataType> extends NgxDatatablePoweredBase<T> implements ITableWithOperationsBase<T>, IHasLocalFilter {
     SelectionType: typeof SelectionType;
     selected: Array<T>;
     editing: {
@@ -13,6 +14,8 @@ export declare abstract class NgxDatatableLocalData<T extends IRowDataType> exte
     };
     anyEditing: boolean;
     abstract noty: INgxNoty;
+    abstract searchControl: FormControl;
+    anyFutureKeyword: string;
     constructor();
     abstract publish(event: ITableDataChangeEvent): void;
     onSelect({ selected }: {
@@ -25,4 +28,8 @@ export declare abstract class NgxDatatableLocalData<T extends IRowDataType> exte
     updateValue(event: any, prop: string, rowIndex: number): void;
     cleanEditing(rowIndex: number): void;
     rmAsync(): Promise<void>;
+    startObserveSearchKeyword(): void;
+    stopObserveSearchKeyword(): void;
+    cancelTypedKeyword(): void;
+    abstract kickOffSearch(): void;
 }

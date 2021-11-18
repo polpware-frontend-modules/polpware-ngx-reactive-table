@@ -111,6 +111,11 @@ class NgxDatatableLocalData extends NgxDatatablePoweredBase {
             yield noopPromise(null);
         });
     }
+    // Support for local filters
+    startObserveSearchKeyword() { }
+    stopObserveSearchKeyword() { }
+    cancelTypedKeyword() { }
+    ;
 }
 
 /**
@@ -276,6 +281,25 @@ function supportOperationsDecorator(constructor) {
     };
 }
 
+function hasLocalFilterDecorator(constructor) {
+    return class extends constructor {
+        // Start to listen for search keyword change
+        startObserveSearchKeyword() {
+            this._searchKeywordSubr = this.searchControl.valueChanges.subscribe(a => {
+                a = (a || '').toLowerCase();
+                this.anyFutureKeyword = a;
+                this.kickOffSearch();
+            });
+        }
+        stopObserveSearchKeyword() {
+            this._searchKeywordSubr && this._searchKeywordSubr.unsubscribe();
+        }
+        cancelTypedKeyword() {
+            this.searchControl.setValue('');
+        }
+    };
+}
+
 /*
  * Public API Surface of ngx-reactive-table
  */
@@ -284,5 +308,5 @@ function supportOperationsDecorator(constructor) {
  * Generated bundle index. Do not edit.
  */
 
-export { NgxDatatableExternalData, NgxDatatableExternalDataWithOperations, NgxDatatableLocalData, NgxDatatablePoweredBase, addOrEditPromise, countProperties, defaultInputTypeValue, defaultSettings, getInputType, noopPromise, rmPromise, sliceArray, supportOperationsDecorator };
+export { NgxDatatableExternalData, NgxDatatableExternalDataWithOperations, NgxDatatableLocalData, NgxDatatablePoweredBase, addOrEditPromise, countProperties, defaultInputTypeValue, defaultSettings, getInputType, hasLocalFilterDecorator, noopPromise, rmPromise, sliceArray, supportOperationsDecorator };
 //# sourceMappingURL=polpware-ngx-reactive-table.js.map

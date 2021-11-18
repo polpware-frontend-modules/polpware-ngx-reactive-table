@@ -1,5 +1,6 @@
 import { TemplateRef } from '@angular/core';
 import { INgxNoty } from '@polpware/ngx-noty';
+import { FormControl } from '@angular/forms';
 export declare type HtmlInputTypeEnum = 'text' | 'tel' | 'email' | 'date' | 'number' | 'checkbox';
 export interface IRowDataType {
     id: any;
@@ -85,4 +86,12 @@ export interface ITableWithOperationsBase<T extends IRowDataType> extends IReact
     updateValue(event: any, prop: string, rowIndex: number): void;
     cleanEditing(rowIndex: number): void;
     rmAsync(): Promise<any>;
+}
+export interface IHasLocalFilter {
+    searchControl: FormControl;
+    anyFutureKeyword: string;
+    startObserveSearchKeyword(): void;
+    stopObserveSearchKeyword(): void;
+    cancelTypedKeyword(): void;
+    kickOffSearch(): void;
 }

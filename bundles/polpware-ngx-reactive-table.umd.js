@@ -373,6 +373,11 @@
                 });
             });
         };
+        // Support for local filters
+        NgxDatatableLocalData.prototype.startObserveSearchKeyword = function () { };
+        NgxDatatableLocalData.prototype.stopObserveSearchKeyword = function () { };
+        NgxDatatableLocalData.prototype.cancelTypedKeyword = function () { };
+        ;
         return NgxDatatableLocalData;
     }(NgxDatatablePoweredBase));
 
@@ -576,6 +581,31 @@
         }(constructor));
     }
 
+    function hasLocalFilterDecorator(constructor) {
+        return /** @class */ (function (_super) {
+            __extends(class_1, _super);
+            function class_1() {
+                return _super !== null && _super.apply(this, arguments) || this;
+            }
+            // Start to listen for search keyword change
+            class_1.prototype.startObserveSearchKeyword = function () {
+                var _this = this;
+                this._searchKeywordSubr = this.searchControl.valueChanges.subscribe(function (a) {
+                    a = (a || '').toLowerCase();
+                    _this.anyFutureKeyword = a;
+                    _this.kickOffSearch();
+                });
+            };
+            class_1.prototype.stopObserveSearchKeyword = function () {
+                this._searchKeywordSubr && this._searchKeywordSubr.unsubscribe();
+            };
+            class_1.prototype.cancelTypedKeyword = function () {
+                this.searchControl.setValue('');
+            };
+            return class_1;
+        }(constructor));
+    }
+
     exports.NgxDatatableExternalData = NgxDatatableExternalData;
     exports.NgxDatatableExternalDataWithOperations = NgxDatatableExternalDataWithOperations;
     exports.NgxDatatableLocalData = NgxDatatableLocalData;
@@ -585,6 +615,7 @@
     exports.defaultInputTypeValue = defaultInputTypeValue;
     exports.defaultSettings = defaultSettings;
     exports.getInputType = getInputType;
+    exports.hasLocalFilterDecorator = hasLocalFilterDecorator;
     exports.noopPromise = noopPromise;
     exports.rmPromise = rmPromise;
     exports.sliceArray = sliceArray;

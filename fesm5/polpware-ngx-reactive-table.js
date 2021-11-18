@@ -151,6 +151,11 @@ var NgxDatatableLocalData = /** @class */ (function (_super) {
             });
         });
     };
+    // Support for local filters
+    NgxDatatableLocalData.prototype.startObserveSearchKeyword = function () { };
+    NgxDatatableLocalData.prototype.stopObserveSearchKeyword = function () { };
+    NgxDatatableLocalData.prototype.cancelTypedKeyword = function () { };
+    ;
     return NgxDatatableLocalData;
 }(NgxDatatablePoweredBase));
 
@@ -354,6 +359,31 @@ function supportOperationsDecorator(constructor) {
     }(constructor));
 }
 
+function hasLocalFilterDecorator(constructor) {
+    return /** @class */ (function (_super) {
+        __extends(class_1, _super);
+        function class_1() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        // Start to listen for search keyword change
+        class_1.prototype.startObserveSearchKeyword = function () {
+            var _this = this;
+            this._searchKeywordSubr = this.searchControl.valueChanges.subscribe(function (a) {
+                a = (a || '').toLowerCase();
+                _this.anyFutureKeyword = a;
+                _this.kickOffSearch();
+            });
+        };
+        class_1.prototype.stopObserveSearchKeyword = function () {
+            this._searchKeywordSubr && this._searchKeywordSubr.unsubscribe();
+        };
+        class_1.prototype.cancelTypedKeyword = function () {
+            this.searchControl.setValue('');
+        };
+        return class_1;
+    }(constructor));
+}
+
 /*
  * Public API Surface of ngx-reactive-table
  */
@@ -362,5 +392,5 @@ function supportOperationsDecorator(constructor) {
  * Generated bundle index. Do not edit.
  */
 
-export { NgxDatatableExternalData, NgxDatatableExternalDataWithOperations, NgxDatatableLocalData, NgxDatatablePoweredBase, addOrEditPromise, countProperties, defaultInputTypeValue, defaultSettings, getInputType, noopPromise, rmPromise, sliceArray, supportOperationsDecorator };
+export { NgxDatatableExternalData, NgxDatatableExternalDataWithOperations, NgxDatatableLocalData, NgxDatatablePoweredBase, addOrEditPromise, countProperties, defaultInputTypeValue, defaultSettings, getInputType, hasLocalFilterDecorator, noopPromise, rmPromise, sliceArray, supportOperationsDecorator };
 //# sourceMappingURL=polpware-ngx-reactive-table.js.map
