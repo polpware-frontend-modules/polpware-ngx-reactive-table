@@ -167,8 +167,7 @@ function supportOperationsDecorator(constructor) {
             return countProperties(this.backup) > 0;
         }
         onSelect({ selected }) {
-            this.selected.splice(0, this.selected.length);
-            this.selected.push(...selected);
+            this.selected = [...selected];
         }
         startAdd() {
             const newElem = {

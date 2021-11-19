@@ -216,10 +216,8 @@ function supportOperationsDecorator(constructor) {
             configurable: true
         });
         class_1.prototype.onSelect = function (_a) {
-            var _b;
             var selected = _a.selected;
-            this.selected.splice(0, this.selected.length);
-            (_b = this.selected).push.apply(_b, __spread(selected));
+            this.selected = __spread(selected);
         };
         class_1.prototype.startAdd = function () {
             var _this = this;
