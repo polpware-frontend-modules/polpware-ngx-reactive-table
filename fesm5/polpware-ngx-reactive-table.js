@@ -4,18 +4,25 @@ import { ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
 var noopPromise = function (data) { return new Promise(function (resolve, reject) {
     resolve(data);
 }); };
-var rmPromise = function (data) { return new Promise(function (resolve, reject) {
+var deletePromise = function (data) { return new Promise(function (resolve, reject) {
     resolve();
 }); };
-var addOrEditPromise = function (data) { return new Promise(function (resolve, reject) {
-    var newData = Object.assign(data, { id: new Date().getTime() });
+var createPromise = function (data) { return new Promise(function (resolve, reject) {
+    var newData = Object.assign({}, data, { id: new Date().getTime() });
+    resolve(newData);
+}); };
+var updatePromise = function (data) { return new Promise(function (resolve, reject) {
+    var newData = Object.assign({}, data);
     resolve(newData);
 }); };
 var defaultSettings = {
     pageSize: 40,
-    editable: false,
-    rmAsyncHandler: rmPromise,
-    addOrEditAsyncHandler: addOrEditPromise
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+    createAsyncHandler: createPromise,
+    updateAsyncHandler: updatePromise,
+    deleteAsyncHandler: deletePromise
 };
 
 var NgxDatatablePoweredBase = /** @class */ (function () {
@@ -269,35 +276,49 @@ function supportOperationsDecorator(constructor) {
         };
         class_1.prototype.confirmEditAsync = function (rowIndex) {
             return __awaiter(this, void 0, void 0, function () {
-                var elem, newElem, firstPart, secondPart, e_1;
+                var elem, newElem, op, firstPart, secondPart, firstPart, secondPart, e_1;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            _a.trys.push([0, 3, , 4]);
+                            _a.trys.push([0, 6, , 7]);
                             elem = this.rows[rowIndex];
                             newElem = null;
-                            if (!this.settings.addOrEditAsyncHandler) return [3 /*break*/, 2];
-                            return [4 /*yield*/, this.settings.addOrEditAsyncHandler(elem)];
+                            op = '';
+                            if (!elem.id) return [3 /*break*/, 3];
+                            op = 'update';
+                            if (!this.settings.updateAsyncHandler) return [3 /*break*/, 2];
+                            return [4 /*yield*/, this.settings.updateAsyncHandler(elem)];
                         case 1:
                             newElem = _a.sent();
                             firstPart = sliceArray(this.rows, 0, rowIndex - 1);
                             secondPart = sliceArray(this.rows, rowIndex + 1, this.rows.length - 1);
                             this.rows = __spread(firstPart, [newElem], secondPart);
                             _a.label = 2;
-                        case 2:
+                        case 2: return [3 /*break*/, 5];
+                        case 3:
+                            op = 'create';
+                            if (!this.settings.updateAsyncHandler) return [3 /*break*/, 5];
+                            return [4 /*yield*/, this.settings.createAsyncHandler(elem)];
+                        case 4:
+                            newElem = _a.sent();
+                            firstPart = sliceArray(this.rows, 0, rowIndex - 1);
+                            secondPart = sliceArray(this.rows, rowIndex + 1, this.rows.length - 1);
+                            this.rows = __spread(firstPart, [newElem], secondPart);
+                            _a.label = 5;
+                        case 5:
                             this.cleanEditing(rowIndex);
                             delete this.backup[rowIndex];
                             this.publish({
-                                op: 'addOrEdit',
+                                op: op,
                                 data: newElem,
                                 rows: this.rows
                             });
-                            return [3 /*break*/, 4];
-                        case 3:
+                            return [3 /*break*/, 7];
+                        case 6:
                             e_1 = _a.sent();
                             this.noty.error('Sorry, something went wrong!', 'Operation result');
-                            return [3 /*break*/, 4];
-                        case 4: return [2 /*return*/];
+                            return [3 /*break*/, 7];
+                        case 7: return [2 /*return*/];
                     }
                 });
             });
@@ -321,9 +342,9 @@ function supportOperationsDecorator(constructor) {
                     switch (_a.label) {
                         case 0:
                             _a.trys.push([0, 3, , 4]);
-                            if (!this.settings.rmAsyncHandler) return [3 /*break*/, 2];
+                            if (!this.settings.deleteAsyncHandler) return [3 /*break*/, 2];
                             // Expect to be a transaction 
-                            return [4 /*yield*/, this.settings.rmAsyncHandler(this.selected)];
+                            return [4 /*yield*/, this.settings.deleteAsyncHandler(this.selected)];
                         case 1:
                             // Expect to be a transaction 
                             _a.sent();
@@ -337,7 +358,7 @@ function supportOperationsDecorator(constructor) {
                             this.selected = [];
                             this.noty.success('Data has been deleted successfully!', 'Operation result');
                             this.publish({
-                                op: 'rm',
+                                op: 'delete',
                                 data: oldSelected,
                                 rows: this.rows
                             });
@@ -385,5 +406,5 @@ function hasLocalFilterDecorator(constructor) {
  * Generated bundle index. Do not edit.
  */
 
-export { NgxDatatableExternalData, NgxDatatableExternalDataWithOperations, NgxDatatableLocalData, NgxDatatablePoweredBase, addOrEditPromise, countProperties, defaultInputTypeValue, defaultSettings, getInputType, hasLocalFilterDecorator, noopPromise, rmPromise, sliceArray, supportOperationsDecorator };
+export { NgxDatatableExternalData, NgxDatatableExternalDataWithOperations, NgxDatatableLocalData, NgxDatatablePoweredBase, countProperties, createPromise, defaultInputTypeValue, defaultSettings, deletePromise, getInputType, hasLocalFilterDecorator, noopPromise, sliceArray, supportOperationsDecorator, updatePromise };
 //# sourceMappingURL=polpware-ngx-reactive-table.js.map

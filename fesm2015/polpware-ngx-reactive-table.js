@@ -4,18 +4,25 @@ import { ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
 const noopPromise = (data) => new Promise((resolve, reject) => {
     resolve(data);
 });
-const rmPromise = (data) => new Promise((resolve, reject) => {
+const deletePromise = (data) => new Promise((resolve, reject) => {
     resolve();
 });
-const addOrEditPromise = (data) => new Promise((resolve, reject) => {
-    const newData = Object.assign(data, { id: new Date().getTime() });
+const createPromise = (data) => new Promise((resolve, reject) => {
+    const newData = Object.assign({}, data, { id: new Date().getTime() });
+    resolve(newData);
+});
+const updatePromise = (data) => new Promise((resolve, reject) => {
+    const newData = Object.assign({}, data);
     resolve(newData);
 });
 const defaultSettings = {
     pageSize: 40,
-    editable: false,
-    rmAsyncHandler: rmPromise,
-    addOrEditAsyncHandler: addOrEditPromise
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+    createAsyncHandler: createPromise,
+    updateAsyncHandler: updatePromise,
+    deleteAsyncHandler: deletePromise
 };
 
 class NgxDatatablePoweredBase {
@@ -220,17 +227,33 @@ function supportOperationsDecorator(constructor) {
                 try {
                     const elem = this.rows[rowIndex];
                     let newElem = null;
-                    if (this.settings.addOrEditAsyncHandler) {
-                        newElem = yield this.settings.addOrEditAsyncHandler(elem);
-                        // todo: Do we need to update data ????
-                        const firstPart = sliceArray(this.rows, 0, rowIndex - 1);
-                        const secondPart = sliceArray(this.rows, rowIndex + 1, this.rows.length - 1);
-                        this.rows = [...firstPart, newElem, ...secondPart];
+                    let op = '';
+                    if (elem.id) {
+                        op = 'update';
+                        // Update an existing elment
+                        if (this.settings.updateAsyncHandler) {
+                            newElem = yield this.settings.updateAsyncHandler(elem);
+                            // todo: Do we need to update data ????
+                            const firstPart = sliceArray(this.rows, 0, rowIndex - 1);
+                            const secondPart = sliceArray(this.rows, rowIndex + 1, this.rows.length - 1);
+                            this.rows = [...firstPart, newElem, ...secondPart];
+                        }
+                    }
+                    else {
+                        op = 'create';
+                        // Update an existing elment
+                        if (this.settings.updateAsyncHandler) {
+                            newElem = yield this.settings.createAsyncHandler(elem);
+                            // todo: Do we need to update data ????
+                            const firstPart = sliceArray(this.rows, 0, rowIndex - 1);
+                            const secondPart = sliceArray(this.rows, rowIndex + 1, this.rows.length - 1);
+                            this.rows = [...firstPart, newElem, ...secondPart];
+                        }
                     }
                     this.cleanEditing(rowIndex);
                     delete this.backup[rowIndex];
                     this.publish({
-                        op: 'addOrEdit',
+                        op: op,
                         data: newElem,
                         rows: this.rows
                     });
@@ -253,9 +276,9 @@ function supportOperationsDecorator(constructor) {
         rmAsync() {
             return __awaiter(this, void 0, void 0, function* () {
                 try {
-                    if (this.settings.rmAsyncHandler) {
+                    if (this.settings.deleteAsyncHandler) {
                         // Expect to be a transaction 
-                        yield this.settings.rmAsyncHandler(this.selected);
+                        yield this.settings.deleteAsyncHandler(this.selected);
                     }
                     // Do not refresh; just delete them from the local set.
                     // Update data
@@ -265,7 +288,7 @@ function supportOperationsDecorator(constructor) {
                     this.selected = [];
                     this.noty.success('Data has been deleted successfully!', 'Operation result');
                     this.publish({
-                        op: 'rm',
+                        op: 'delete',
                         data: oldSelected,
                         rows: this.rows
                     });
@@ -302,5 +325,5 @@ function hasLocalFilterDecorator(constructor) {
  * Generated bundle index. Do not edit.
  */
 
-export { NgxDatatableExternalData, NgxDatatableExternalDataWithOperations, NgxDatatableLocalData, NgxDatatablePoweredBase, addOrEditPromise, countProperties, defaultInputTypeValue, defaultSettings, getInputType, hasLocalFilterDecorator, noopPromise, rmPromise, sliceArray, supportOperationsDecorator };
+export { NgxDatatableExternalData, NgxDatatableExternalDataWithOperations, NgxDatatableLocalData, NgxDatatablePoweredBase, countProperties, createPromise, defaultInputTypeValue, defaultSettings, deletePromise, getInputType, hasLocalFilterDecorator, noopPromise, sliceArray, supportOperationsDecorator, updatePromise };
 //# sourceMappingURL=polpware-ngx-reactive-table.js.map

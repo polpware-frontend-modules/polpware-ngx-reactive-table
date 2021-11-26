@@ -7,13 +7,17 @@ export interface IRowDataType {
 }
 export interface IComponentSettings {
     pageSize?: number;
-    editable?: boolean;
-    rmAsyncHandler?: (data: Array<IRowDataType>) => Promise<any>;
-    addOrEditAsyncHandler?: (data: IRowDataType) => Promise<IRowDataType>;
+    canCreate?: boolean;
+    canUpdate?: boolean;
+    canDelete?: boolean;
+    createAsyncHandler?: (data: IRowDataType) => Promise<IRowDataType>;
+    deleteAsyncHandler?: (data: Array<IRowDataType>) => Promise<any>;
+    updateAsyncHandler?: (data: IRowDataType) => Promise<IRowDataType>;
 }
 export declare const noopPromise: (data: any) => Promise<unknown>;
-export declare const rmPromise: (data: IRowDataType[]) => Promise<unknown>;
-export declare const addOrEditPromise: (data: IRowDataType) => Promise<IRowDataType>;
+export declare const deletePromise: (data: IRowDataType[]) => Promise<unknown>;
+export declare const createPromise: (data: IRowDataType) => Promise<IRowDataType>;
+export declare const updatePromise: (data: IRowDataType) => Promise<IRowDataType>;
 export declare const defaultSettings: IComponentSettings;
 export interface ITableColumnSpec {
     name?: string;
@@ -61,7 +65,7 @@ export interface IReactiveDatableBase<T extends IRowDataType> {
     sorts: Array<ISortableColumn>;
 }
 export interface ITableDataChangeEvent {
-    op: 'addOrEdit' | 'rm';
+    op: 'create' | 'delete' | 'update' | '';
     data: Array<IRowDataType> | IRowDataType;
     rows: Array<IRowDataType>;
 }
