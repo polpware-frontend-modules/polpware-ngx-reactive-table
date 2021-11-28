@@ -187,8 +187,10 @@ function supportOperationsDecorator(constructor) {
                     newElem[a.prop] = defaultInputTypeValue(a.inputType);
                 }
             });
+            // Disable sorting
+            this.sorts = [];
             // Add the element into the rows (no backup)
-            this.rows = [newElem, ...this.rows];
+            this.datatable.rows = [newElem, ...this.datatable._internalRows];
             this.totalCount = this.totalCount + 1;
             this.backup[0] = newElem;
             // Enable editing it.
@@ -199,7 +201,9 @@ function supportOperationsDecorator(constructor) {
             });
         }
         startEdit(rowIndex) {
-            const data = this.rows[rowIndex];
+            // Disable sorts
+            this.sorts = [];
+            const data = this.datatable._internalRows[rowIndex];
             this.backup[rowIndex] = Object.assign({}, data);
             this.columns.forEach(a => {
                 if (a.editable) {
@@ -210,8 +214,8 @@ function supportOperationsDecorator(constructor) {
         // Support editing an existing one and adding a new one
         cancelEdit(rowIndex) {
             // Replace the old value
-            const firstPart = sliceArray(this.rows, 0, rowIndex - 1);
-            const secondPart = sliceArray(this.rows, rowIndex + 1, this.rows.length - 1);
+            const firstPart = sliceArray(this.datatable._internalRows, 0, rowIndex - 1);
+            const secondPart = sliceArray(this.datatable._internalRows, rowIndex + 1, this.datatable._internalRows.length - 1);
             const elem = this.backup[rowIndex];
             // An existing one
             if (elem.id) {
@@ -227,31 +231,27 @@ function supportOperationsDecorator(constructor) {
         confirmEditAsync(rowIndex) {
             return __awaiter(this, void 0, void 0, function* () {
                 try {
-                    const elem = this.rows[rowIndex];
-                    let newElem = null;
+                    const elem = this.datatable._internalRows[rowIndex];
+                    let newElem = elem;
                     let op = '';
                     if (elem.id) {
                         op = 'update';
                         // Update an existing elment
                         if (this.settings.updateAsyncHandler) {
                             newElem = yield this.settings.updateAsyncHandler(elem);
-                            // todo: Do we need to update data ????
-                            const firstPart = sliceArray(this.rows, 0, rowIndex - 1);
-                            const secondPart = sliceArray(this.rows, rowIndex + 1, this.rows.length - 1);
-                            this.rows = [...firstPart, newElem, ...secondPart];
                         }
                     }
                     else {
                         op = 'create';
                         // Update an existing elment
-                        if (this.settings.updateAsyncHandler) {
+                        if (this.settings.createAsyncHandler) {
                             newElem = yield this.settings.createAsyncHandler(elem);
-                            // todo: Do we need to update data ????
-                            const firstPart = sliceArray(this.rows, 0, rowIndex - 1);
-                            const secondPart = sliceArray(this.rows, rowIndex + 1, this.rows.length - 1);
-                            this.rows = [...firstPart, newElem, ...secondPart];
                         }
                     }
+                    // todo: Do we need to update data ????
+                    const firstPart = sliceArray(this.datatable._internalRows, 0, rowIndex - 1);
+                    const secondPart = sliceArray(this.datatable._internalRows, rowIndex + 1, this.rows.length - 1);
+                    this.rows = [...firstPart, newElem, ...secondPart];
                     this.cleanEditing(rowIndex);
                     delete this.backup[rowIndex];
                     this.publish({
@@ -266,7 +266,7 @@ function supportOperationsDecorator(constructor) {
             });
         }
         updateValue(event, prop, rowIndex) {
-            this.rows[rowIndex][prop] = event.target.value;
+            this.datatable._internalRows[rowIndex][prop] = event.target.value;
         }
         cleanEditing(rowIndex) {
             this.columns.forEach(a => {
@@ -282,6 +282,8 @@ function supportOperationsDecorator(constructor) {
                         // Expect to be a transaction 
                         yield this.settings.deleteAsyncHandler(this.selected);
                     }
+                    // This operation preserve sorting
+                    // Therfore, we on purpose use rows instead of internal rows
                     // Do not refresh; just delete them from the local set.
                     // Update data
                     this.rows = this.rows.filter(a => !this.selected.some(b => b === a));

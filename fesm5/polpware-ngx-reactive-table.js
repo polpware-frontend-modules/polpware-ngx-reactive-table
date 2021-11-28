@@ -237,8 +237,10 @@ function supportOperationsDecorator(constructor) {
                     newElem[a.prop] = defaultInputTypeValue(a.inputType);
                 }
             });
+            // Disable sorting
+            this.sorts = [];
             // Add the element into the rows (no backup)
-            this.rows = __spread([newElem], this.rows);
+            this.datatable.rows = __spread([newElem], this.datatable._internalRows);
             this.totalCount = this.totalCount + 1;
             this.backup[0] = newElem;
             // Enable editing it.
@@ -250,7 +252,9 @@ function supportOperationsDecorator(constructor) {
         };
         class_1.prototype.startEdit = function (rowIndex) {
             var _this = this;
-            var data = this.rows[rowIndex];
+            // Disable sorts
+            this.sorts = [];
+            var data = this.datatable._internalRows[rowIndex];
             this.backup[rowIndex] = __assign({}, data);
             this.columns.forEach(function (a) {
                 if (a.editable) {
@@ -261,8 +265,8 @@ function supportOperationsDecorator(constructor) {
         // Support editing an existing one and adding a new one
         class_1.prototype.cancelEdit = function (rowIndex) {
             // Replace the old value
-            var firstPart = sliceArray(this.rows, 0, rowIndex - 1);
-            var secondPart = sliceArray(this.rows, rowIndex + 1, this.rows.length - 1);
+            var firstPart = sliceArray(this.datatable._internalRows, 0, rowIndex - 1);
+            var secondPart = sliceArray(this.datatable._internalRows, rowIndex + 1, this.datatable._internalRows.length - 1);
             var elem = this.backup[rowIndex];
             // An existing one
             if (elem.id) {
@@ -277,13 +281,13 @@ function supportOperationsDecorator(constructor) {
         };
         class_1.prototype.confirmEditAsync = function (rowIndex) {
             return __awaiter(this, void 0, void 0, function () {
-                var elem, newElem, op, firstPart, secondPart, firstPart, secondPart, e_1;
+                var elem, newElem, op, firstPart, secondPart, e_1;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
                             _a.trys.push([0, 6, , 7]);
-                            elem = this.rows[rowIndex];
-                            newElem = null;
+                            elem = this.datatable._internalRows[rowIndex];
+                            newElem = elem;
                             op = '';
                             if (!elem.id) return [3 /*break*/, 3];
                             op = 'update';
@@ -291,22 +295,19 @@ function supportOperationsDecorator(constructor) {
                             return [4 /*yield*/, this.settings.updateAsyncHandler(elem)];
                         case 1:
                             newElem = _a.sent();
-                            firstPart = sliceArray(this.rows, 0, rowIndex - 1);
-                            secondPart = sliceArray(this.rows, rowIndex + 1, this.rows.length - 1);
-                            this.rows = __spread(firstPart, [newElem], secondPart);
                             _a.label = 2;
                         case 2: return [3 /*break*/, 5];
                         case 3:
                             op = 'create';
-                            if (!this.settings.updateAsyncHandler) return [3 /*break*/, 5];
+                            if (!this.settings.createAsyncHandler) return [3 /*break*/, 5];
                             return [4 /*yield*/, this.settings.createAsyncHandler(elem)];
                         case 4:
                             newElem = _a.sent();
-                            firstPart = sliceArray(this.rows, 0, rowIndex - 1);
-                            secondPart = sliceArray(this.rows, rowIndex + 1, this.rows.length - 1);
-                            this.rows = __spread(firstPart, [newElem], secondPart);
                             _a.label = 5;
                         case 5:
+                            firstPart = sliceArray(this.datatable._internalRows, 0, rowIndex - 1);
+                            secondPart = sliceArray(this.datatable._internalRows, rowIndex + 1, this.rows.length - 1);
+                            this.rows = __spread(firstPart, [newElem], secondPart);
                             this.cleanEditing(rowIndex);
                             delete this.backup[rowIndex];
                             this.publish({
@@ -325,7 +326,7 @@ function supportOperationsDecorator(constructor) {
             });
         };
         class_1.prototype.updateValue = function (event, prop, rowIndex) {
-            this.rows[rowIndex][prop] = event.target.value;
+            this.datatable._internalRows[rowIndex][prop] = event.target.value;
         };
         class_1.prototype.cleanEditing = function (rowIndex) {
             var _this = this;
@@ -351,6 +352,8 @@ function supportOperationsDecorator(constructor) {
                             _a.sent();
                             _a.label = 2;
                         case 2:
+                            // This operation preserve sorting
+                            // Therfore, we on purpose use rows instead of internal rows
                             // Do not refresh; just delete them from the local set.
                             // Update data
                             this.rows = this.rows.filter(function (a) { return !_this.selected.some(function (b) { return b === a; }); });

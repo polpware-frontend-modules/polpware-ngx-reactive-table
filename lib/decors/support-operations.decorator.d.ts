@@ -26,6 +26,7 @@ export declare function supportOperationsDecorator<T extends IRowDataType, U ext
         };
         noty: import("@polpware/ngx-noty").INgxNoty;
         publish(event: import("../interfaces").ITableDataChangeEvent): void;
+        datatable: import("@swimlane/ngx-datatable").DatatableComponent;
         settings: import("../interfaces").IComponentSettings;
         columns: import("../interfaces").ITableColumnSpec[];
         rows: T[];
