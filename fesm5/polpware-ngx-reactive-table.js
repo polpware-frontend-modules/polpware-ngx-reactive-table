@@ -222,9 +222,10 @@ function supportOperationsDecorator(constructor) {
             enumerable: true,
             configurable: true
         });
-        class_1.prototype.onSelect = function (_a) {
-            var selected = _a.selected;
-            this.selected = __spread(selected);
+        class_1.prototype.onSelect = function (a) {
+            if (a && a.selected && Array.isArray(a.selected)) {
+                this.selected = __spread(a.selected);
+            }
         };
         class_1.prototype.startAdd = function () {
             var _this = this;

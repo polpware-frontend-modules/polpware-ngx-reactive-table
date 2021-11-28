@@ -173,8 +173,10 @@ function supportOperationsDecorator(constructor) {
         get anyEditing() {
             return countProperties(this.backup) > 0;
         }
-        onSelect({ selected }) {
-            this.selected = [...selected];
+        onSelect(a) {
+            if (a && a.selected && Array.isArray(a.selected)) {
+                this.selected = [...a.selected];
+            }
         }
         startAdd() {
             const newElem = {

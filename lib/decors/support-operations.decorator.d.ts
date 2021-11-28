@@ -7,8 +7,8 @@ declare type DecoratorPrerequisiteClass<T extends IRowDataType> = {
 export declare function supportOperationsDecorator<T extends IRowDataType, U extends DecoratorPrerequisiteClass<T>>(constructor: U): {
     new (...args: any[]): {
         readonly anyEditing: boolean;
-        onSelect({ selected }: {
-            selected: any;
+        onSelect(a: {
+            selected: T[];
         }): void;
         startAdd(): void;
         startEdit(rowIndex: number): void;
