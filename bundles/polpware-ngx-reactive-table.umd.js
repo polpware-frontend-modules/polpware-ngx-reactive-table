@@ -246,6 +246,18 @@
         updateAsyncHandler: updatePromise,
         deleteAsyncHandler: deletePromise
     };
+    function adaptToGeneralPagedRequest(input) {
+        return {
+            pageSize: input.maxResultCount,
+            pageIndex: Math.floor(input.skipCount / input.maxResultCount)
+        };
+    }
+    function adaptToAbpPagedRequest(input) {
+        return {
+            skipCount: input.pageIndex * input.pageSize,
+            maxResultCount: input.pageSize
+        };
+    }
 
     var NgxDatatablePoweredBase = /** @class */ (function () {
         function NgxDatatablePoweredBase() {
@@ -628,6 +640,8 @@
     exports.NgxDatatableExternalDataWithOperations = NgxDatatableExternalDataWithOperations;
     exports.NgxDatatableLocalData = NgxDatatableLocalData;
     exports.NgxDatatablePoweredBase = NgxDatatablePoweredBase;
+    exports.adaptToAbpPagedRequest = adaptToAbpPagedRequest;
+    exports.adaptToGeneralPagedRequest = adaptToGeneralPagedRequest;
     exports.countProperties = countProperties;
     exports.createPromise = createPromise;
     exports.defaultInputTypeValue = defaultInputTypeValue;

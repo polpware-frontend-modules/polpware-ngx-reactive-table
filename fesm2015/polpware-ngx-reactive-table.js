@@ -24,6 +24,18 @@ const defaultSettings = {
     updateAsyncHandler: updatePromise,
     deleteAsyncHandler: deletePromise
 };
+function adaptToGeneralPagedRequest(input) {
+    return {
+        pageSize: input.maxResultCount,
+        pageIndex: Math.floor(input.skipCount / input.maxResultCount)
+    };
+}
+function adaptToAbpPagedRequest(input) {
+    return {
+        skipCount: input.pageIndex * input.pageSize,
+        maxResultCount: input.pageSize
+    };
+}
 
 class NgxDatatablePoweredBase {
     constructor() {
@@ -329,5 +341,5 @@ function hasLocalFilterDecorator(constructor) {
  * Generated bundle index. Do not edit.
  */
 
-export { NgxDatatableExternalData, NgxDatatableExternalDataWithOperations, NgxDatatableLocalData, NgxDatatablePoweredBase, countProperties, createPromise, defaultInputTypeValue, defaultSettings, deletePromise, getInputType, hasLocalFilterDecorator, noopPromise, sliceArray, supportOperationsDecorator, updatePromise };
+export { NgxDatatableExternalData, NgxDatatableExternalDataWithOperations, NgxDatatableLocalData, NgxDatatablePoweredBase, adaptToAbpPagedRequest, adaptToGeneralPagedRequest, countProperties, createPromise, defaultInputTypeValue, defaultSettings, deletePromise, getInputType, hasLocalFilterDecorator, noopPromise, sliceArray, supportOperationsDecorator, updatePromise };
 //# sourceMappingURL=polpware-ngx-reactive-table.js.map

@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
-import { INgxNoty } from '@polpware/ngx-noty';
 import { FormControl } from '@angular/forms';
+import { INgxNoty } from '@polpware/ngx-noty';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 export declare type HtmlInputTypeEnum = 'text' | 'tel' | 'email' | 'date' | 'number' | 'checkbox' | 'file';
 export interface IRowDataType {
@@ -101,3 +101,27 @@ export interface IHasLocalFilter {
     cancelTypedKeyword(): void;
     kickOffSearch(): void;
 }
+/**
+ * pageIndex starting with 0
+ */
+export interface IGeneralPagedRequest {
+    pageSize: number;
+    pageIndex: number;
+}
+export interface IGeneralPagedResponse<T> {
+    totalCount: number;
+    items: Array<T>;
+}
+export interface IAbpPagedRequest {
+    skipCount?: number;
+    maxResultCount?: number;
+}
+export interface IAbpPagedAndSortedRequest extends IAbpPagedRequest {
+    sorting?: string;
+}
+export interface IAbpPagedResponse<T> {
+    totalCount: number;
+    items: Array<T>;
+}
+export declare function adaptToGeneralPagedRequest(input: IAbpPagedRequest): IGeneralPagedRequest;
+export declare function adaptToAbpPagedRequest(input: IGeneralPagedRequest): IAbpPagedRequest;
