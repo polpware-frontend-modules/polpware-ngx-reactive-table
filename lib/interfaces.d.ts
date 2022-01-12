@@ -2,7 +2,7 @@ import { TemplateRef } from '@angular/core';
 import { INgxNoty } from '@polpware/ngx-noty';
 import { FormControl } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
-export declare type HtmlInputTypeEnum = 'text' | 'tel' | 'email' | 'date' | 'number' | 'checkbox';
+export declare type HtmlInputTypeEnum = 'text' | 'tel' | 'email' | 'date' | 'number' | 'checkbox' | 'file';
 export interface IRowDataType {
     id: any;
 }
