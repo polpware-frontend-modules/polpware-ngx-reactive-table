@@ -1,11 +1,11 @@
 import { Subscription } from 'rxjs';
-import { IHasLocalFilter } from '../interfaces';
-interface IDecoratorPrerequisite extends IHasLocalFilter {
+import { ISearchCapabiltyBuilder } from '../interfaces';
+interface IDecoratorPrerequisite extends ISearchCapabiltyBuilder {
 }
 declare type DecoratorPrerequisiteClass = {
     new (...args: any[]): IDecoratorPrerequisite;
 };
-export declare function hasLocalFilterDecorator<T extends DecoratorPrerequisiteClass>(constructor: T): {
+export declare function hasInlineSearchDecorator<T extends DecoratorPrerequisiteClass>(constructor: T): {
     new (...args: any[]): {
         _searchKeywordSubr: Subscription;
         startObserveSearchKeyword(): void;

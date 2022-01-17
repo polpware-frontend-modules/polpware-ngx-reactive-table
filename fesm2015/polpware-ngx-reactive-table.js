@@ -66,6 +66,10 @@ class NgxDatatableExternalData extends NgxDatatablePoweredBase {
     onPageChanged(evt) {
         this.buildTableDataAsync(evt.offset);
     }
+    onPageSizeChanged(size) {
+        this.pageSize = size;
+        this.refresh();
+    }
     refresh() {
         // The other settings stay the same.
         this.buildTableDataAsync(0);
@@ -103,6 +107,35 @@ class NgxDatatableExternalDataWithOperations extends NgxDatatableExternalData {
 
 // Dervied classes must use decorator to provide implementation
 class NgxDatatableLocalData extends NgxDatatablePoweredBase {
+    constructor() {
+        super();
+        this.SelectionType = SelectionType;
+        // Support selected
+        this.selected = [];
+        // Suport editing
+        this.editing = {};
+        this.backup = {};
+    }
+    onSelect({ selected }) { }
+    startAdd() { }
+    startEdit(rowIndex) { }
+    // Support editing an existing one and adding a new one
+    cancelEdit(rowIndex) { }
+    ;
+    confirmEditAsync(rowIndex) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield noopPromise(rowIndex);
+        });
+    }
+    updateValue(event, prop, rowIndex) { }
+    cleanEditing(rowIndex) { }
+    rmAsync() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield noopPromise(null);
+        });
+    }
+}
+class NgxDatatableLocalDataWithInlineSearch extends NgxDatatablePoweredBase {
     constructor() {
         super();
         this.SelectionType = SelectionType;
@@ -317,7 +350,7 @@ function supportOperationsDecorator(constructor) {
     };
 }
 
-function hasLocalFilterDecorator(constructor) {
+function hasInlineSearchDecorator(constructor) {
     return class extends constructor {
         // Start to listen for search keyword change
         startObserveSearchKeyword() {
@@ -341,5 +374,5 @@ function hasLocalFilterDecorator(constructor) {
  * Generated bundle index. Do not edit.
  */
 
-export { NgxDatatableExternalData, NgxDatatableExternalDataWithOperations, NgxDatatableLocalData, NgxDatatablePoweredBase, adaptToAbpPagedRequest, adaptToGeneralPagedRequest, countProperties, createPromise, defaultInputTypeValue, defaultSettings, deletePromise, getInputType, hasLocalFilterDecorator, noopPromise, sliceArray, supportOperationsDecorator, updatePromise };
+export { NgxDatatableExternalData, NgxDatatableExternalDataWithOperations, NgxDatatableLocalData, NgxDatatableLocalDataWithInlineSearch, NgxDatatablePoweredBase, adaptToAbpPagedRequest, adaptToGeneralPagedRequest, countProperties, createPromise, defaultInputTypeValue, defaultSettings, deletePromise, getInputType, hasInlineSearchDecorator, noopPromise, sliceArray, supportOperationsDecorator, updatePromise };
 //# sourceMappingURL=polpware-ngx-reactive-table.js.map

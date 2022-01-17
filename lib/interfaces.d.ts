@@ -93,7 +93,7 @@ export interface ITableWithOperationsBase<T extends IRowDataType> extends IReact
     cleanEditing(rowIndex: number): void;
     rmAsync(): Promise<any>;
 }
-export interface IHasLocalFilter {
+export interface ISearchCapabiltyBuilder {
     searchControl: FormControl;
     anyFutureKeyword: string;
     startObserveSearchKeyword(): void;

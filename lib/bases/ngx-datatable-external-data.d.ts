@@ -6,6 +6,7 @@ export declare abstract class NgxDatatableExternalData<T extends IRowDataType> e
     constructor();
     protected abstract buildTableDataAsync(pageIndex: number): Promise<any>;
     onPageChanged(evt: IPageChangedEvent): void;
+    onPageSizeChanged(size: number): void;
     refresh(): void;
     abstract onSortChanged(evt: ISortChangedEvent): any;
 }

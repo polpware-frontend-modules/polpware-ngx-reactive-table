@@ -68,6 +68,10 @@ var NgxDatatableExternalData = /** @class */ (function (_super) {
     NgxDatatableExternalData.prototype.onPageChanged = function (evt) {
         this.buildTableDataAsync(evt.offset);
     };
+    NgxDatatableExternalData.prototype.onPageSizeChanged = function (size) {
+        this.pageSize = size;
+        this.refresh();
+    };
     NgxDatatableExternalData.prototype.refresh = function () {
         // The other settings stay the same.
         this.buildTableDataAsync(0);
@@ -170,10 +174,58 @@ var NgxDatatableLocalData = /** @class */ (function (_super) {
             });
         });
     };
-    // Support for local filters
-    NgxDatatableLocalData.prototype.startObserveSearchKeyword = function () { };
-    NgxDatatableLocalData.prototype.stopObserveSearchKeyword = function () { };
     return NgxDatatableLocalData;
+}(NgxDatatablePoweredBase));
+var NgxDatatableLocalDataWithInlineSearch = /** @class */ (function (_super) {
+    __extends(NgxDatatableLocalDataWithInlineSearch, _super);
+    function NgxDatatableLocalDataWithInlineSearch() {
+        var _this = _super.call(this) || this;
+        _this.SelectionType = SelectionType;
+        // Support selected
+        _this.selected = [];
+        // Suport editing
+        _this.editing = {};
+        _this.backup = {};
+        return _this;
+    }
+    NgxDatatableLocalDataWithInlineSearch.prototype.onSelect = function (_a) {
+        var selected = _a.selected;
+    };
+    NgxDatatableLocalDataWithInlineSearch.prototype.startAdd = function () { };
+    NgxDatatableLocalDataWithInlineSearch.prototype.startEdit = function (rowIndex) { };
+    // Support editing an existing one and adding a new one
+    NgxDatatableLocalDataWithInlineSearch.prototype.cancelEdit = function (rowIndex) { };
+    ;
+    NgxDatatableLocalDataWithInlineSearch.prototype.confirmEditAsync = function (rowIndex) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, noopPromise(rowIndex)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    NgxDatatableLocalDataWithInlineSearch.prototype.updateValue = function (event, prop, rowIndex) { };
+    NgxDatatableLocalDataWithInlineSearch.prototype.cleanEditing = function (rowIndex) { };
+    NgxDatatableLocalDataWithInlineSearch.prototype.rmAsync = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, noopPromise(null)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    // Support for local filters
+    NgxDatatableLocalDataWithInlineSearch.prototype.startObserveSearchKeyword = function () { };
+    NgxDatatableLocalDataWithInlineSearch.prototype.stopObserveSearchKeyword = function () { };
+    return NgxDatatableLocalDataWithInlineSearch;
 }(NgxDatatablePoweredBase));
 
 /**
@@ -392,7 +444,7 @@ function supportOperationsDecorator(constructor) {
     }(constructor));
 }
 
-function hasLocalFilterDecorator(constructor) {
+function hasInlineSearchDecorator(constructor) {
     return /** @class */ (function (_super) {
         __extends(class_1, _super);
         function class_1() {
@@ -422,5 +474,5 @@ function hasLocalFilterDecorator(constructor) {
  * Generated bundle index. Do not edit.
  */
 
-export { NgxDatatableExternalData, NgxDatatableExternalDataWithOperations, NgxDatatableLocalData, NgxDatatablePoweredBase, adaptToAbpPagedRequest, adaptToGeneralPagedRequest, countProperties, createPromise, defaultInputTypeValue, defaultSettings, deletePromise, getInputType, hasLocalFilterDecorator, noopPromise, sliceArray, supportOperationsDecorator, updatePromise };
+export { NgxDatatableExternalData, NgxDatatableExternalDataWithOperations, NgxDatatableLocalData, NgxDatatableLocalDataWithInlineSearch, NgxDatatablePoweredBase, adaptToAbpPagedRequest, adaptToGeneralPagedRequest, countProperties, createPromise, defaultInputTypeValue, defaultSettings, deletePromise, getInputType, hasInlineSearchDecorator, noopPromise, sliceArray, supportOperationsDecorator, updatePromise };
 //# sourceMappingURL=polpware-ngx-reactive-table.js.map
