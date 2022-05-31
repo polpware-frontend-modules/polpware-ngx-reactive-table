@@ -13,3 +13,4 @@ export declare abstract class NgxDatatablePoweredBase<T extends IRowDataType> im
     sortingKey: string;
     sorts: Array<ISortableColumn>;
 }
+//# sourceMappingURL=ngx-datatable-powered-base.d.ts.map

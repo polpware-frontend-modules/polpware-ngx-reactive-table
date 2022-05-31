@@ -17,3 +17,4 @@ export declare function hasInlineSearchDecorator<T extends DecoratorPrerequisite
     };
 } & T;
 export {};
+//# sourceMappingURL=has-inline-search.decorator.d.ts.map

@@ -8,7 +8,7 @@ export declare function supportOperationsDecorator<T extends IRowDataType, U ext
     new (...args: any[]): {
         readonly anyEditing: boolean;
         onSelect(a: {
-            selected: T[];
+            selected: Array<T>;
         }): void;
         startAdd(): void;
         startEdit(rowIndex: number): void;
@@ -39,3 +39,4 @@ export declare function supportOperationsDecorator<T extends IRowDataType, U ext
     };
 } & U;
 export {};
+//# sourceMappingURL=support-operations.decorator.d.ts.map

@@ -57,3 +57,4 @@ export declare abstract class NgxDatatableLocalDataWithInlineSearch<T extends IR
     abstract cancelTypedKeyword(): void;
     abstract kickOffSearch(): void;
 }
+//# sourceMappingURL=ngx-datatable-local-data.d.ts.map

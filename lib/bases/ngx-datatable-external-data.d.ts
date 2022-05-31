@@ -34,3 +34,4 @@ export declare abstract class NgxDatatableExternalDataWithOperations<T extends I
     cleanEditing(rowIndex: number): void;
     rmAsync(): Promise<void>;
 }
+//# sourceMappingURL=ngx-datatable-external-data.d.ts.map

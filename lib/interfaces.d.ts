@@ -16,7 +16,7 @@ export interface IComponentSettings {
     updateAsyncHandler?: (data: IRowDataType) => Promise<IRowDataType>;
 }
 export declare const noopPromise: (data: any) => Promise<unknown>;
-export declare const deletePromise: (data: IRowDataType[]) => Promise<unknown>;
+export declare const deletePromise: (data: Array<IRowDataType>) => Promise<unknown>;
 export declare const createPromise: (data: IRowDataType) => Promise<IRowDataType>;
 export declare const updatePromise: (data: IRowDataType) => Promise<IRowDataType>;
 export declare const defaultSettings: IComponentSettings;
@@ -125,3 +125,4 @@ export interface IAbpPagedResponse<T> {
 }
 export declare function adaptToGeneralPagedRequest(input: IAbpPagedRequest): IGeneralPagedRequest;
 export declare function adaptToAbpPagedRequest(input: IGeneralPagedRequest): IAbpPagedRequest;
+//# sourceMappingURL=interfaces.d.ts.map

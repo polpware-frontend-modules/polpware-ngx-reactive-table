@@ -9,3 +9,4 @@ export declare function sliceArray(data: Array<any>, fromIndex: number, endIndex
 export declare function countProperties(obj: Object): number;
 export declare function getInputType(data: any): HtmlInputTypeEnum;
 export declare function defaultInputTypeValue(t: HtmlInputTypeEnum): false | "" | 0;
+//# sourceMappingURL=utils.d.ts.map
