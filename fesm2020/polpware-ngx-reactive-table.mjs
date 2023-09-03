@@ -211,25 +211,27 @@ function supportOperationsDecorator(constructor) {
             }
         }
         startAdd() {
-            const newElem = {
-                id: ''
-            };
-            this.columns.forEach(a => {
-                if (a.editable) {
-                    newElem[a.prop] = defaultInputTypeValue(a.inputType);
-                }
-            });
             // Disable sorting
             this.sorts = [];
-            // Add the element into the rows (no backup)
-            this.datatable.rows = [newElem, ...this.datatable._internalRows];
-            this.totalCount = this.totalCount + 1;
-            this.backup[0] = newElem;
-            // Enable editing it.
-            this.columns.forEach(a => {
-                if (a.editable) {
-                    this.editing[0 + '-' + a.prop] = true;
-                }
+            setTimeout(() => {
+                const newElem = {
+                    id: ''
+                };
+                this.columns.forEach(a => {
+                    if (a.editable) {
+                        newElem[a.prop] = defaultInputTypeValue(a.inputType);
+                    }
+                });
+                // Add the element into the rows (no backup)
+                this.datatable.rows = [newElem, ...this.datatable._internalRows];
+                this.totalCount = this.totalCount + 1;
+                this.backup[0] = newElem;
+                // Enable editing it.
+                this.columns.forEach(a => {
+                    if (a.editable) {
+                        this.editing[0 + '-' + a.prop] = true;
+                    }
+                });
             });
         }
         startEdit(rowIndex) {
@@ -281,7 +283,7 @@ function supportOperationsDecorator(constructor) {
                 }
                 // todo: Do we need to update data ????
                 const firstPart = sliceArray(this.datatable._internalRows, 0, rowIndex - 1);
-                const secondPart = sliceArray(this.datatable._internalRows, rowIndex + 1, this.rows.length - 1);
+                const secondPart = sliceArray(this.datatable._internalRows, rowIndex + 1, this.datatable._internalRows.length - 1);
                 this.rows = [...firstPart, newElem, ...secondPart];
                 this.cleanEditing(rowIndex);
                 delete this.backup[rowIndex];
