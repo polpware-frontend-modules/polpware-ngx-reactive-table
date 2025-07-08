@@ -1,20 +1,16 @@
 {
   "name": "@polpware/ngx-reactive-table",
-  "version": "15.0.0",
+  "version": "16.0.0",
   "peerDependencies": {
-    "@angular/common": "^15.0.0",
-    "@angular/core": "^15.0.0",
+    "@angular/common": "^16.0.0",
+    "@angular/core": "^16.0.0",
     "@swimlane/ngx-datatable": "^20.1.0",
-    "@polpware/ngx-noty": "^15.0.0"
+    "@polpware/ngx-noty": "^16.0.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"
   },
-  "module": "fesm2015/polpware-ngx-reactive-table.mjs",
-  "es2020": "fesm2020/polpware-ngx-reactive-table.mjs",
-  "esm2020": "esm2020/polpware-ngx-reactive-table.mjs",
-  "fesm2020": "fesm2020/polpware-ngx-reactive-table.mjs",
-  "fesm2015": "fesm2015/polpware-ngx-reactive-table.mjs",
+  "module": "fesm2022/polpware-ngx-reactive-table.mjs",
   "typings": "index.d.ts",
   "exports": {
     "./package.json": {
@@ -22,11 +18,9 @@
     },
     ".": {
       "types": "./index.d.ts",
-      "esm2020": "./esm2020/polpware-ngx-reactive-table.mjs",
-      "es2020": "./fesm2020/polpware-ngx-reactive-table.mjs",
-      "es2015": "./fesm2015/polpware-ngx-reactive-table.mjs",
-      "node": "./fesm2015/polpware-ngx-reactive-table.mjs",
-      "default": "./fesm2020/polpware-ngx-reactive-table.mjs"
+      "esm2022": "./esm2022/polpware-ngx-reactive-table.mjs",
+      "esm": "./esm2022/polpware-ngx-reactive-table.mjs",
+      "default": "./fesm2022/polpware-ngx-reactive-table.mjs"
     }
   },
   "sideEffects": false,
