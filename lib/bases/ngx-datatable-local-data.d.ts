@@ -1,4 +1,4 @@
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { INgxNoty } from '@polpware/ngx-noty';
 import { SelectionType } from '@swimlane/ngx-datatable';
 import { IRowDataType, ISearchCapabiltyBuilder, ITableDataChangeEvent, ITableWithOperationsBase } from '../interfaces';
@@ -38,7 +38,7 @@ export declare abstract class NgxDatatableLocalDataWithInlineSearch<T extends IR
     };
     anyEditing: boolean;
     abstract noty: INgxNoty;
-    abstract searchControl: FormControl;
+    abstract searchControl: UntypedFormControl;
     anyFutureKeyword: string;
     constructor();
     abstract publish(event: ITableDataChangeEvent): void;

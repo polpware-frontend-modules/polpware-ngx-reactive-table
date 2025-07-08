@@ -10,7 +10,7 @@ export declare function hasInlineSearchDecorator<T extends DecoratorPrerequisite
         _searchKeywordSubr: Subscription;
         startObserveSearchKeyword(): void;
         stopObserveSearchKeyword(): void;
-        searchControl: import("@angular/forms").FormControl;
+        searchControl: import("@angular/forms").UntypedFormControl;
         anyFutureKeyword: string;
         cancelTypedKeyword(): void;
         kickOffSearch(): void;

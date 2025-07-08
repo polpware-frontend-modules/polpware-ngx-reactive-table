@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { INgxNoty } from '@polpware/ngx-noty';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 export declare type HtmlInputTypeEnum = 'text' | 'tel' | 'email' | 'date' | 'number' | 'checkbox' | 'file';
@@ -94,7 +94,7 @@ export interface ITableWithOperationsBase<T extends IRowDataType> extends IReact
     rmAsync(): Promise<any>;
 }
 export interface ISearchCapabiltyBuilder {
-    searchControl: FormControl;
+    searchControl: UntypedFormControl;
     anyFutureKeyword: string;
     startObserveSearchKeyword(): void;
     stopObserveSearchKeyword(): void;
