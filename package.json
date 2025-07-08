@@ -1,11 +1,11 @@
 {
   "name": "@polpware/ngx-reactive-table",
-  "version": "14.0.0",
+  "version": "15.0.0",
   "peerDependencies": {
-    "@angular/common": "^14.0.0",
-    "@angular/core": "^14.0.0",
+    "@angular/common": "^15.0.0",
+    "@angular/core": "^15.0.0",
     "@swimlane/ngx-datatable": "^20.1.0",
-    "@polpware/ngx-noty": "^14.0.0"
+    "@polpware/ngx-noty": "^15.0.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"

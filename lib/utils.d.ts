@@ -8,5 +8,5 @@ import { HtmlInputTypeEnum } from './interfaces';
 export declare function sliceArray(data: Array<any>, fromIndex: number, endIndex: number): any[];
 export declare function countProperties(obj: Object): number;
 export declare function getInputType(data: any): HtmlInputTypeEnum;
-export declare function defaultInputTypeValue(t: HtmlInputTypeEnum): false | "" | 0;
+export declare function defaultInputTypeValue(t: HtmlInputTypeEnum): false | 0 | "";
 //# sourceMappingURL=utils.d.ts.map

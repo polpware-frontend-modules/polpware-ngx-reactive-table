@@ -2,7 +2,7 @@ import { Subscription } from 'rxjs';
 import { ISearchCapabiltyBuilder } from '../interfaces';
 interface IDecoratorPrerequisite extends ISearchCapabiltyBuilder {
 }
-declare type DecoratorPrerequisiteClass = {
+type DecoratorPrerequisiteClass = {
     new (...args: any[]): IDecoratorPrerequisite;
 };
 export declare function hasInlineSearchDecorator<T extends DecoratorPrerequisiteClass>(constructor: T): {

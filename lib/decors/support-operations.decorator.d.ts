@@ -1,7 +1,7 @@
 import { IRowDataType, ITableWithOperationsBase } from '../interfaces';
 interface IDecoratorPrerequisite<T extends IRowDataType> extends ITableWithOperationsBase<T> {
 }
-declare type DecoratorPrerequisiteClass<T extends IRowDataType> = {
+type DecoratorPrerequisiteClass<T extends IRowDataType> = {
     new (...args: any[]): IDecoratorPrerequisite<T>;
 };
 export declare function supportOperationsDecorator<T extends IRowDataType, U extends DecoratorPrerequisiteClass<T>>(constructor: U): {
