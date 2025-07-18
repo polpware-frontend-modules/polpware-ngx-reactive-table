@@ -28,14 +28,14 @@ export declare function supportOperationsDecorator<T extends IRowDataType, U ext
         publish(event: import("../interfaces").ITableDataChangeEvent): void;
         datatable: import("@swimlane/ngx-datatable").DatatableComponent;
         settings: import("../interfaces").IComponentSettings;
-        columns: import("../interfaces").ITableColumnSpec[];
+        columns: Array<import("../interfaces").ITableColumnSpec>;
         rows: T[];
         pageSize: number;
         loading: boolean;
         totalCount: number;
         pageIndex: number;
         sortingKey: string;
-        sorts: import("../interfaces").ISortableColumn[];
+        sorts: Array<import("../interfaces").ISortableColumn>;
     };
 } & U;
 export {};
