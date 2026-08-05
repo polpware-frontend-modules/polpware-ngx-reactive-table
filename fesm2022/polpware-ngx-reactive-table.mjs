@@ -223,7 +223,7 @@ function supportOperationsDecorator(constructor) {
                     }
                 });
                 // Add the element into the rows (no backup)
-                this.datatable.rows = [newElem, ...this.datatable._internalRows];
+                this.rows = [newElem, ...this.datatable._internalRows()];
                 this.totalCount = this.totalCount + 1;
                 this.backup[0] = newElem;
                 // Enable editing it.
@@ -237,7 +237,7 @@ function supportOperationsDecorator(constructor) {
         startEdit(rowIndex) {
             // Disable sorts
             this.sorts = [];
-            const data = this.datatable._internalRows[rowIndex];
+            const data = this.datatable._internalRows()[rowIndex];
             this.backup[rowIndex] = { ...data };
             this.columns.forEach(a => {
                 if (a.editable) {
@@ -248,8 +248,8 @@ function supportOperationsDecorator(constructor) {
         // Support editing an existing one and adding a new one
         cancelEdit(rowIndex) {
             // Replace the old value
-            const firstPart = sliceArray(this.datatable._internalRows, 0, rowIndex - 1);
-            const secondPart = sliceArray(this.datatable._internalRows, rowIndex + 1, this.datatable._internalRows.length - 1);
+            const firstPart = sliceArray(this.datatable._internalRows(), 0, rowIndex - 1);
+            const secondPart = sliceArray(this.datatable._internalRows(), rowIndex + 1, this.datatable._internalRows().length - 1);
             const elem = this.backup[rowIndex];
             // An existing one
             if (elem.id) {
@@ -264,7 +264,7 @@ function supportOperationsDecorator(constructor) {
         }
         async confirmEditAsync(rowIndex) {
             try {
-                const elem = this.datatable._internalRows[rowIndex];
+                const elem = this.datatable._internalRows()[rowIndex];
                 let newElem = elem;
                 let op = '';
                 if (elem.id) {
@@ -282,8 +282,8 @@ function supportOperationsDecorator(constructor) {
                     }
                 }
                 // todo: Do we need to update data ????
-                const firstPart = sliceArray(this.datatable._internalRows, 0, rowIndex - 1);
-                const secondPart = sliceArray(this.datatable._internalRows, rowIndex + 1, this.datatable._internalRows.length - 1);
+                const firstPart = sliceArray(this.datatable._internalRows(), 0, rowIndex - 1);
+                const secondPart = sliceArray(this.datatable._internalRows(), rowIndex + 1, this.datatable._internalRows().length - 1);
                 this.rows = [...firstPart, newElem, ...secondPart];
                 this.cleanEditing(rowIndex);
                 delete this.backup[rowIndex];
@@ -298,7 +298,7 @@ function supportOperationsDecorator(constructor) {
             }
         }
         updateValue(event, prop, rowIndex) {
-            this.datatable._internalRows[rowIndex][prop] = event.target.value;
+            this.datatable._internalRows()[rowIndex][prop] = event.target.value;
         }
         cleanEditing(rowIndex) {
             this.columns.forEach(a => {
